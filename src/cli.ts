@@ -1,13 +1,15 @@
-#!/usr/bin/env bun
+#!/usr/bin/env node
 
 import { Command } from "commander";
-import { resolve, join } from "path";
+import { resolve, join, dirname } from "path";
 import { spawnSync } from "child_process";
+import { fileURLToPath } from "url";
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
 const program = new Command();
 
 program
-  .name("swagger-type-gen")
+  .name("type-gen")
   .description("Generate TypeScript types from Swagger/OpenAPI JSON")
   .version("1.0.0")
   .requiredOption("-u, --url <url>", "Swagger JSON URL")
@@ -25,7 +27,7 @@ program
       const outputDir = resolve(process.cwd(), options.output);
       const templatesDir = options.templates
         ? resolve(process.cwd(), options.templates)
-        : join(import.meta.dir, "templates");
+        : join(__dirname, "templates");
 
       const args = [
         "swagger-typescript-api",

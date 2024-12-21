@@ -1,0 +1,9 @@
+src/__tests__
+.github
+.gitignore
+.eslintrc
+.prettierrc
+tsconfig.json
+*.log
+coverage
+.env 

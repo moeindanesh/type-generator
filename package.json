@@ -1,16 +1,18 @@
 {
   "name": "@moeindana/type-generator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Generate TypeScript types from Swagger/OpenAPI JSON",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
   "scripts": {
-    "build": "bun build ./src/index.ts --outdir ./dist --target node && tsc --emitDeclarationOnly",
+    "build": "tsc",
     "generate": "bun src/cli.ts",
-    "test": "bun test",
+    "test": "bun test src/__tests__/*.test.ts",
     "prepare": "bun run build",
-    "prepublishOnly": "bun test"
+    "prepublishOnly": "bun test",
+    "lint": "eslint src/**/*.ts",
+    "format": "prettier --write \"src/**/*.ts\""
   },
   "files": [
     "dist",
@@ -31,7 +33,11 @@
   },
   "devDependencies": {
     "bun-types": "latest",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.56.0",
+    "prettier": "^3.2.5"
   },
   "bin": {
     "swagger-type-gen": "./dist/cli.js"
@@ -46,5 +52,11 @@
   "homepage": "https://github.com/moeindana/type-generator#readme",
   "engines": {
     "node": ">=16"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
   }
 }

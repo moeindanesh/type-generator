@@ -1,5 +1,8 @@
 import { spawnSync } from "child_process";
-import { join, resolve } from "path";
+import { join, resolve, dirname } from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export interface GeneratorOptions {
   url: string;
@@ -17,7 +20,7 @@ export async function generateTypes(options: GeneratorOptions): Promise<void> {
     const outputDir = resolve(process.cwd(), options.output);
     const templatesDir = options.templates
       ? resolve(process.cwd(), options.templates)
-      : join(import.meta.dir, "templates");
+      : join(__dirname, "templates");
 
     const args = [
       "swagger-typescript-api",

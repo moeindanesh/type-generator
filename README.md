@@ -11,6 +11,11 @@ A lightweight TypeScript type generator for Swagger/OpenAPI specifications. This
 - CLI and programmatic usage
 - Built with Bun for optimal performance
 
+## Requirements
+
+- Node.js >= 16
+- Bun runtime (for development)
+
 ## Installation
 
 ```bash
@@ -20,7 +25,7 @@ npm install @moeindana/type-generator
 ## CLI Usage
 
 ```bash
-npx swagger-type-gen -u https://api.example.com/swagger.json
+npx type-gen -u https://api.example.com/swagger.json
 ```
 
 ### CLI Options
@@ -55,6 +60,21 @@ You can customize the generated types by providing your own templates. Create a 
 
 Then specify the templates directory using the `-t` option in CLI or `templates` option in programmatic usage.
 
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+
+## Development
+
+1. Clone the repository
+2. Install dependencies with `bun install`
+3. Run tests with `bun test`
+4. Build the package with `bun run build`
+
 ## License
 
 MIT © [moeindana]
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for details about changes and releases.
