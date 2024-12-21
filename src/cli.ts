@@ -11,7 +11,7 @@ const program = new Command();
 program
   .name("type-gen")
   .description("Generate TypeScript types from Swagger/OpenAPI JSON")
-  .version("1.0.0")
+  .version("1.0.1")
   .requiredOption("-u, --url <url>", "Swagger JSON URL")
   .option("-o, --output <directory>", "Output directory", "./src/types")
   .option("-n, --name <filename>", "Output filename", "types.ts")
@@ -27,7 +27,7 @@ program
       const outputDir = resolve(process.cwd(), options.output);
       const templatesDir = options.templates
         ? resolve(process.cwd(), options.templates)
-        : join(__dirname, "templates");
+        : join(dirname(__dirname), "templates");
 
       const args = [
         "swagger-typescript-api",

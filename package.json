@@ -1,12 +1,14 @@
 {
   "name": "@moeindana/type-generator",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Generate TypeScript types from Swagger/OpenAPI JSON",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
   "scripts": {
+    "prebuild": "rm -rf dist && cp -r src/templates templates",
     "build": "tsc",
+    "postbuild": "cp -r templates dist/",
     "generate": "bun src/cli.ts",
     "test": "bun test src/__tests__/*.test.ts",
     "prepare": "bun run build",
@@ -16,7 +18,7 @@
   },
   "files": [
     "dist",
-    "src/templates"
+    "templates"
   ],
   "keywords": [
     "swagger",
@@ -40,7 +42,7 @@
     "prettier": "^3.2.5"
   },
   "bin": {
-    "swagger-type-gen": "./dist/cli.js"
+    "type-gen": "./dist/cli.js"
   },
   "repository": {
     "type": "git",

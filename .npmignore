@@ -6,4 +6,6 @@ src/__tests__
 tsconfig.json
 *.log
 coverage
-.env 
+.env
+src
+!templates 

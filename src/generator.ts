@@ -20,7 +20,7 @@ export async function generateTypes(options: GeneratorOptions): Promise<void> {
     const outputDir = resolve(process.cwd(), options.output);
     const templatesDir = options.templates
       ? resolve(process.cwd(), options.templates)
-      : join(__dirname, "templates");
+      : join(dirname(__dirname), "templates");
 
     const args = [
       "swagger-typescript-api",

@@ -1,0 +1,48 @@
+<%
+const { modelTypes, utils, config } = it;
+const { formatDescription, require, _, Ts } = utils;
+
+const fixDateType = (content) => {
+  return content.replace(/date(?!\w)/g, 'Date');
+};
+
+const buildGenerics = (contract) => {
+  if (!contract.genericArgs || !contract.genericArgs.length) return '';
+
+  return '<' + contract.genericArgs.map(({ name, default: defaultType, extends: extendsType }) => {
+    return [
+      name,
+      extendsType && `extends ${extendsType}`,
+      defaultType && `= ${defaultType}`,
+    ].join('')
+  }).join(',') + '>'
+}
+
+const transformContractName = (name) => {
+  // Match pattern like "GetV0CategoriesError" or "PostV0CategoriesError" etc.
+  const match = name.match(/^(Get|Post|Put|Delete)(V\d+)(\w+)(Error)?$/);
+  if (!match) return name;
+  
+  const [_, method, version, entity, error] = match;
+  // Reconstruct as "CategoriesErrorGetV0"
+  return `${entity}${error || ''}${method}${version}`;
+};
+
+const dataContractTemplates = {
+  enum: (contract) => {
+    return `enum ${transformContractName(contract.name)} {\r\n${contract.content} \r\n }`;
+  },
+  interface: (contract) => {
+    return `interface ${transformContractName(contract.name)}${buildGenerics(contract)} {\r\n${fixDateType(contract.content)}}`;
+  },
+  type: (contract) => {
+    return `type ${transformContractName(contract.name)}${buildGenerics(contract)} = ${fixDateType(contract.content)}`;
+  },
+}
+%>
+
+<% for (const contract of modelTypes) { %>
+  <%~ includeFile('@base/data-contract-jsdoc.ejs', { ...it, data: { ...contract, ...contract.typeData } }) %>
+  <%~ contract.internal ? '' : 'export'%> <%~ (dataContractTemplates[contract.typeIdentifier] || dataContractTemplates.type)(contract) %>
+
+<% } %>
