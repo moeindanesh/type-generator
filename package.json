@@ -1,0 +1,50 @@
+{
+  "name": "@moeindana/type-generator",
+  "version": "1.0.0",
+  "description": "Generate TypeScript types from Swagger/OpenAPI JSON",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "build": "bun build ./src/index.ts --outdir ./dist --target node && tsc --emitDeclarationOnly",
+    "generate": "bun src/cli.ts",
+    "test": "bun test",
+    "prepare": "bun run build",
+    "prepublishOnly": "bun test"
+  },
+  "files": [
+    "dist",
+    "src/templates"
+  ],
+  "keywords": [
+    "swagger",
+    "openapi",
+    "typescript",
+    "types",
+    "generator"
+  ],
+  "author": "moeindana",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^12.0.0",
+    "swagger-typescript-api": "^13.0.3"
+  },
+  "devDependencies": {
+    "bun-types": "latest",
+    "typescript": "^5.3.3"
+  },
+  "bin": {
+    "swagger-type-gen": "./dist/cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moeindana/type-generator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/moeindana/type-generator/issues"
+  },
+  "homepage": "https://github.com/moeindana/type-generator#readme",
+  "engines": {
+    "node": ">=16"
+  }
+}
